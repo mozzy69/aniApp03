@@ -1,15 +1,12 @@
 class Bead{
 
-  //   Fields 
-// declare variables used in the Button class here
+  //Fields 
   color cB;
   float xLocB;
   float yLocB;
   float widthB;
   float heightB;
-  //String nameB;
-  //boolean myButtonOver;
-  boolean myButtonPressed;
+  boolean beadDown;
   
 //  Constructor
 
