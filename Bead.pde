@@ -4,22 +4,20 @@ class Bead{
   color cB;
   float xLocB;
   float yLocB;
-  float widthB;
-  float heightB;
+  float sizeB;
   boolean beadDown;
   
 //  Constructor
 
-  Bead(color tempcB, float tempxLocB, float tempyLocB, float tempWidthB, float tempHeightB){
+  Bead(color tempcB, float tempxLocB, float tempyLocB, float tempSizeB){
     cB = tempcB;
     xLocB = tempxLocB;
     yLocB = tempyLocB;
-    widthB = tempWidthB;
-    heightB = tempHeightB; 
+    sizeB = tempSizeB;
   }
   
   void drawBead(){
-  rect(xLocB, yLocB, widthB, heightB);
+  rect(xLocB + BeadSize, yLocB, sizeB, sizeB);
   }
   
 }

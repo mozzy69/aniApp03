@@ -1,13 +1,12 @@
 class Frame{
 
-  //   Fields
+  //Fields
   Bead[] fmBeads;
   int fmRows;
   int fmCols;
   int totalBeads;
   
-//  Constructor
-
+  //Constructor
   Frame(int tempFmRows, int tempFmCols, int tempTotalBeads){
     fmRows = tempFmRows;
     fmCols = tempFmCols;
@@ -17,12 +16,13 @@ class Frame{
     int index=0;
     for(int y = 0; y < fmRows; y++){
       for(int x = 0; x < fmCols; x++){
-        fmBeads[index++] = new Bead(20,x*20,y*20,20,20);
+        fmBeads[index++] = new Bead(20,x*BeadSize,y*BeadSize,BeadSize);
       }
     }  
  
   }
   
+  //Methods
   void drawFrame(){
   for(int i = 0; i < totalBeads; i++){
      fmBeads[i].drawBead();
