@@ -1,7 +1,6 @@
 class Bead{
 
   //Fields 
-  color cB;
   float xLocB;
   float yLocB;
   float sizeB;
@@ -9,15 +8,15 @@ class Bead{
   
 //  Constructor
 
-  Bead(color tempcB, float tempxLocB, float tempyLocB, float tempSizeB){
-    cB = tempcB;
+  Bead(float tempxLocB, float tempyLocB, float tempSizeB){
     xLocB = tempxLocB;
     yLocB = tempyLocB;
     sizeB = tempSizeB;
   }
   
-  void drawBead(){
-  rect(xLocB + BeadSize, yLocB + HeaderHeight, sizeB, sizeB);
+  void drawBead(color beadColor){
+    fill(beadColor);
+    rect(xLocB + BeadSize, yLocB + HeaderHeight, sizeB, sizeB);
   }
   
 }

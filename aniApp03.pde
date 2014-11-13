@@ -1,6 +1,6 @@
 
 //Globals
-Frame[] myFrame;
+Frame[] mainFrame;
 Header myHeader;
 int BeadSize;
 int Columns;
@@ -52,12 +52,19 @@ void setup(){
   
   //Setup Frames will be through interface
   //here for illustrative purposes
-  myFrame = new Frame[2];
-  myFrame[0] = new Frame(Rows, Columns, TotalColRow);
+  mainFrame = new Frame[2];
+  mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
 }
 
 void draw(){
   smooth();
-  myFrame[0].drawFrame();
+  mainFrame[0].drawFrame();
   
 }
+
+void mousePressed(){
+  int one = 1;
+println("I'm "+ one++ + " depressed" );
+//fill(100);
+}
+
