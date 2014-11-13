@@ -1,7 +1,6 @@
-class Bead{
-
+class Header{
+/*
   //Fields 
-  color cB;
   float xLocB;
   float yLocB;
   float sizeB;
@@ -17,7 +16,15 @@ class Bead{
   }
   
   void drawBead(){
-  rect(xLocB + BeadSize, yLocB + HeaderHeight, sizeB, sizeB);
+  rect(xLocB + BeadSize, yLocB + Header, sizeB, sizeB);
   }
+
+
+  void drawHeader(){
+    for(int i = 0; i < width; i++){
+      image(HeaderShadow, i, HeaderHeight - HeaderShadow.height);
+    }
+  } 
   
+   */
 }
