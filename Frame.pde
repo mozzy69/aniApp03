@@ -29,16 +29,18 @@ class Frame{
       if(mousePressed && 
       mouseX > fmBeads[i].xLocB + BeadSize && 
       mouseX < fmBeads[i].xLocB + BeadSize + fmBeads[i].sizeB && 
-      mouseY > fmBeads[i].yLocB + HeaderHeight && 
-      mouseY < fmBeads[i].yLocB + HeaderHeight + fmBeads[i].sizeB){
+      mouseY > fmBeads[i].yLocB + BeadSize + HeaderHeight && 
+      mouseY < fmBeads[i].yLocB + BeadSize + HeaderHeight + fmBeads[i].sizeB){
         fill(10);
         println("something");
         beadColorFm = color(255, 0, 0);
         fmBeads[i].drawBead(beadColorFm);
-      }        
-      //fmBeads[i].drawBead(beadColorFm);
-     // println(fmBeads[i].xLocB);
-   }
-  }
+      }else if(Initialize){
+      fill(255);        
+      fmBeads[i].drawBead(beadColorFm);
+     }//End conditional
+   }//End loop
+   Initialize = false;
+  }//End drawFrame()
   
-}
+}//End class definition/////////////////////////////////////////////////////////////////

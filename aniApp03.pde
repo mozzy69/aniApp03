@@ -7,6 +7,7 @@ int Columns;
 int Rows;
 int TotalColRow;
 int HeaderHeight;
+boolean Initialize;
 
 PImage HeaderShadow;
 PImage Logo;
@@ -15,10 +16,12 @@ PFont HeaderFont;
 
 void setup(){
   size(displayWidth, displayHeight);
-  
+  smooth();
   //DeBug///////////////////////////
   println(width + " " + height);
   //////////////////////////////////
+  
+  Initialize = true;
   
   //This will be set through the interface
   //here for illustrative purposes
@@ -57,7 +60,6 @@ void setup(){
 }
 
 void draw(){
-  smooth();
   mainFrame[0].drawFrame();
   
 }
