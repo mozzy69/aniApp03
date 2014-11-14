@@ -8,6 +8,8 @@ int Rows;
 int TotalColRow;
 int HeaderHeight;
 boolean Initialize;
+boolean VertOrient;
+int FmIndex;
 
 PImage HeaderShadow;
 PImage Logo;
@@ -28,14 +30,20 @@ void setup(){
   
   //This will be set through the interface
   //here for illustrative purposes
-  Columns = 15;
-  Rows = 15;
+  Columns = 20;
+  Rows = 20;
   
-
-  
+  FmIndex = 0;
   //Set BeadSize based on Device Display
   TotalColRow = Columns * Rows;
-  BeadSize = width/(Columns + 2);
+  //Set BeadSize and Determine Display Orientation
+  if (width<height){
+    BeadSize = width/(Columns + 2);
+    VertOrient = true;
+  }else{
+    BeadSize = height/(Rows + 4);
+    VertOrient = false;
+  }
   
   //Header stuff needs to go into header class/////////////////
   HeaderHeight = int((height/100)*10);
@@ -61,22 +69,20 @@ void setup(){
   
   //Setup Frames will be through interface
   //here for illustrative purposes
-  mainFrame = new Frame[2];
+  mainFrame = new Frame[4];
   mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
   mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
+  mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
+  mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
 }
 
 //------------------------------------------------------------------------------------//
 
 void draw(){
   
-  if(mousePressed && mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
-  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-  println("computers");
-  }
+ 
   
-  mainFrame[0].drawFrame();
+  mainFrame[FmIndex].drawFrame();
   /*
   if(mouseX>0 && mouseX<width/4){
     mainFrame[0].drawFrame();
@@ -94,9 +100,21 @@ void draw(){
  (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
 }
 
-void mousePressed(){
-  int one = 1;
-println("I'm "+ one++ + " depressed" );
-//fill(100);
+void mouseReleased(){
+  //This is a debug to test the forward and previous buttons below the canvas
+  //FmIndex will cause the program to crash if it exceeds mainFrame[] element access
+  if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
+  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
+  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
+    println("computers");
+    FmIndex++;
+    println(FmIndex);
+  }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
+  mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
+   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
+    println("more compies");
+    FmIndex--;
+    println(FmIndex);  
+   }
 }
 

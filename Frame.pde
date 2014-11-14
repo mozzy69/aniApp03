@@ -31,14 +31,12 @@ class Frame{
       mouseX < fmBeads[i].xLocB + BeadSize + fmBeads[i].sizeB && 
       mouseY > fmBeads[i].yLocB + BeadSize + HeaderHeight && 
       mouseY < fmBeads[i].yLocB + BeadSize + HeaderHeight + fmBeads[i].sizeB){
-        fill(10);
-        println("something");
         beadColorFm = color(255, 0, 0);
         fmBeads[i].drawBead(beadColorFm);
       }else if(Initialize){
-      fill(100);        
-      fmBeads[i].drawBead(beadColorFm);
-     }//End conditional
+        beadColorFm = color(100, 100, 100);        
+        fmBeads[i].drawBead(beadColorFm);
+      }//End conditional
    }//End loop
    Initialize = false;
   }//End drawFrame()

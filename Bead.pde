@@ -4,7 +4,7 @@ class Bead{
   float xLocB;
   float yLocB;
   float sizeB;
-  boolean beadDown;
+  //boolean beadDown;
   
 //  Constructor
 
