@@ -81,7 +81,7 @@ void setup(){
 void draw(){
   
  
-  
+  //drawFrame returns an array of color values
   mainFrame[FmIndex].drawFrame();
   /*
   if(mouseX>0 && mouseX<width/4){
@@ -109,12 +109,14 @@ void mouseReleased(){
     println("computers");
     FmIndex++;
     println(FmIndex);
+    Initialize = true;
   }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
   mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
    mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
     println("more compies");
     FmIndex--;
-    println(FmIndex);  
+    println(FmIndex); 
+    //Initialize = true; 
    }
 }
 

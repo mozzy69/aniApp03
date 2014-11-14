@@ -6,6 +6,7 @@ class Frame{
   int fmCols;
   int totalBeads;
   color beadColorFm;
+  color[] storeBeadColor;
   
   //Constructor
   Frame(int tempFmRows, int tempFmCols, int tempTotalBeads){
@@ -13,6 +14,7 @@ class Frame{
     fmCols = tempFmCols;
     totalBeads = tempTotalBeads;
     fmBeads = new Bead[totalBeads];
+    storeBeadColor = new color[totalBeads];
     
     int index=0;
     for(int y = 0; y < fmRows; y++){
@@ -24,7 +26,7 @@ class Frame{
   }
   
   //Methods
-  void drawFrame(){
+  color[] drawFrame(){
   for(int i = 0; i < totalBeads; i++){
       if(mousePressed && 
       mouseX > fmBeads[i].xLocB + BeadSize && 
@@ -35,10 +37,12 @@ class Frame{
         fmBeads[i].drawBead(beadColorFm);
       }else if(Initialize){
         beadColorFm = color(100, 100, 100);        
-        fmBeads[i].drawBead(beadColorFm);
+       // fmBeads[i].drawBead(beadColorFm);
+        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
       }//End conditional
    }//End loop
    Initialize = false;
+   return storeBeadColor;
   }//End drawFrame()
   
 }//End class definition/////////////////////////////////////////////////////////////////
