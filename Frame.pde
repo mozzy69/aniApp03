@@ -36,7 +36,7 @@ class Frame{
         beadColorFm = color(255, 0, 0);
         fmBeads[i].drawBead(beadColorFm);
       }else if(Initialize){
-      fill(255);        
+      fill(100);        
       fmBeads[i].drawBead(beadColorFm);
      }//End conditional
    }//End loop
