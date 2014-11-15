@@ -26,23 +26,30 @@ class Frame{
   }
   
   //Methods
-  color[] drawFrame(){
+  //Main method for drawing a frame consisting of sets of beads
+  color[] drawFrame(color beadColorFmNew){
   for(int i = 0; i < totalBeads; i++){
       if(mousePressed && 
       mouseX > fmBeads[i].xLocB + BeadSize && 
       mouseX < fmBeads[i].xLocB + BeadSize + fmBeads[i].sizeB && 
       mouseY > fmBeads[i].yLocB + BeadSize + HeaderHeight && 
       mouseY < fmBeads[i].yLocB + BeadSize + HeaderHeight + fmBeads[i].sizeB){
-        beadColorFm = color(255, 0, 0);
-        fmBeads[i].drawBead(beadColorFm);
+        beadColorFm = beadColorFmNew;
+        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
       }else if(Initialize){
-        beadColorFm = color(100, 100, 100);        
-       // fmBeads[i].drawBead(beadColorFm);
+        beadColorFm = beadColorFmNew;        
+        // fmBeads[i].drawBead(beadColorFm);
         storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
       }//End conditional
    }//End loop
    Initialize = false;
    return storeBeadColor;
   }//End drawFrame()
+  
+  void fmDrawBead(color beadColorFmNew){
+    for(int i = 0; i < totalBeads; i++){
+      fmBeads[i].drawBead(beadColorFm);
+    }
+  }
   
 }//End class definition/////////////////////////////////////////////////////////////////
