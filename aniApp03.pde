@@ -79,10 +79,11 @@ void setup(){
   image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
   
   //Header Text
-  HeaderFont = createFont("3Dumb.ttf", HeaderSansShad/2 );
+  HeaderFont = createFont("slkscr.ttf", HeaderSansShad/2 );
   textFont(HeaderFont);
   fill(0);
-  text("Creative Code \n Animator App", HeaderSansShad, 0);
+  text("Creative Code", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
+  text("Animator App", HeaderSansShad, HeaderSansShad - 5);
   
   //Setup Frames will be through interface have a setup button or hamburger button in header for this
   //here for illustrative purposes
@@ -94,6 +95,20 @@ void setup(){
   
   colorPicker = new PickColor(BeadSize, height-50, (BeadSize*Columns)/14);
   colorPicker.drawPickColor();
+  
+  
+  
+  //Temp Setup for buttons forwards and backward
+   rect(BeadSize, HeaderHeight+BeadSize+(Rows*BeadSize), 
+ (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
+ 
+ rect(BeadSize*(Columns+1)-(BeadSize*Columns)/3, HeaderHeight+BeadSize+(Rows*BeadSize), 
+ (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
+ 
+ //More temp setup to initialize beads
+  for(int i = 0; i < TotalColRow; i++){
+    mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+  }
 }
 
 //------------------------------------------------------------------------------------//
@@ -104,9 +119,7 @@ void draw(){
   //drawFrame returns an array of color values
   //remove from array and remove return data type and color argument eg
   //mainFrame[FmIndex].drawFrame() // to revert to original
-  for(int i = 0; i < TotalColRow; i++){
-    mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-  }
+ 
   /*
   if(mouseX>0 && mouseX<width/4){
     mainFrame[0].drawFrame();
@@ -118,11 +131,7 @@ void draw(){
  */ 
  //two temp buttons at the bottom of the window
  // these buttons need to move to the controls objects to be made
- rect(BeadSize, HeaderHeight+BeadSize+(Rows*BeadSize), 
- (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
- 
- rect(BeadSize*(Columns+1)-(BeadSize*Columns)/3, HeaderHeight+BeadSize+(Rows*BeadSize), 
- (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
+
 }
 
 void mouseReleased(){
@@ -156,6 +165,15 @@ void mouseReleased(){
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+ mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+//  }
+}
+
+
+void mouseDragged(){
+//  for(int i = 0; i < TotalColRow; i++){
+// mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+ mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
 //  }
 }
 
