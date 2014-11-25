@@ -47,8 +47,8 @@ void setup(){
   
   //This will be set through the interface
   //here for illustrative purposes
-  Columns = 10;
-  Rows = 10;
+  Columns = 3;
+  Rows = 3;
   
   FmIndex = 0;
   //Set BeadSize based on Device Display
@@ -79,9 +79,9 @@ void setup(){
   image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
   
   //Header Text
-  HeaderFont = createFont("slkscr.ttf", HeaderSansShad/2 );
+  HeaderFont = createFont("BPdotsUnicase.otf", HeaderSansShad/2 );
   textFont(HeaderFont);
-  fill(0);
+  fill(100);
   text("Creative Code", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
   text("Animator App", HeaderSansShad, HeaderSansShad - 5);
   
@@ -141,23 +141,27 @@ void mouseReleased(){
   if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
   mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-    println("computers");
-    FmIndex++;
-    println(FmIndex);
-     for(int i = 0; i < TotalColRow; i ++){
-      //this looks redundant pls check 
-      mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-      println(mainFrame[FmIndex].storeBeadColor[i]);
+    if(FmIndex < mainFrame.length-1){
+      println("computers");
+      FmIndex++;
+      println(FmIndex);
+      for(int i = 0; i < TotalColRow; i ++){
+        //this looks redundant pls check 
+        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
+        println(mainFrame[FmIndex].storeBeadColor[i]); 
+      }
     }
   }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
   mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
    mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-    println("more compies");
-    FmIndex--;
-    println(FmIndex); 
-    for(int i = 0; i < TotalColRow; i ++){
-      mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-      println(mainFrame[FmIndex].storeBeadColor[i]);
+    if(FmIndex > 0){
+      println("more compies");
+      FmIndex--;
+      println(FmIndex); 
+      for(int i = 0; i < TotalColRow; i ++){
+        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
+        println(mainFrame[FmIndex].storeBeadColor[i]);
+      }
     }
    }
 }
@@ -165,7 +169,9 @@ void mouseReleased(){
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
- mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+  if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
+   mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+  }
 //  }
 }
 
@@ -173,7 +179,9 @@ void mousePressed(){
 void mouseDragged(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
  mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+}//DRY see void mousePressed()
 //  }
 }
 

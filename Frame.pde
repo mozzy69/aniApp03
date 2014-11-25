@@ -48,7 +48,7 @@ class Frame{
   
   void fmDrawBead(color beadColorFmNew){
     for(int i = 0; i < totalBeads; i++){
-      fmBeads[i].drawBead(beadColorFm);
+      fmBeads[i].drawBead(beadColorFmNew);
     }
   }
   
