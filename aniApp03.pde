@@ -3,6 +3,7 @@
 Frame[] mainFrame;
 Header myHeader;
 PickColor colorPicker;
+Controls mainControls;
 //See BeadSize in setup()**
 int BeadSize;
 int Columns;
@@ -79,11 +80,11 @@ void setup(){
   image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
   
   //Header Text
-  HeaderFont = createFont("BPdotsUnicase.otf", HeaderSansShad/2 );
+  HeaderFont = createFont("3Dumb.ttf", HeaderSansShad/2 );
   textFont(HeaderFont);
   fill(100);
-  text("Creative Code", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
-  text("Animator App", HeaderSansShad, HeaderSansShad - 5);
+  text("CREATIVE CODE", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
+  text("ANIMATOR APP", HeaderSansShad, HeaderSansShad - 5);
   
   //Setup Frames will be through interface have a setup button or hamburger button in header for this
   //here for illustrative purposes
@@ -96,15 +97,11 @@ void setup(){
   colorPicker = new PickColor(BeadSize, height-50, (BeadSize*Columns)/14);
   colorPicker.drawPickColor();
   
+  //Draw Main Controls Forward, Backward..
+  mainControls = new Controls("myControls");
+  mainControls.drawBackwardControl();
+  mainControls.drawForwardControl();
   
-  
-  //Temp Setup for buttons forwards and backward
-   rect(BeadSize, HeaderHeight+BeadSize+(Rows*BeadSize), 
- (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
- 
- rect(BeadSize*(Columns+1)-(BeadSize*Columns)/3, HeaderHeight+BeadSize+(Rows*BeadSize), 
- (BeadSize*Columns)/3, (height-(BeadSize*Rows)+HeaderHeight)/3);
- 
  //More temp setup to initialize beads
   for(int i = 0; i < TotalColRow; i++){
     mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
@@ -138,32 +135,31 @@ void mouseReleased(){
   //This is a debug to test the forward and previous buttons below the canvas
   //FmIndex will cause the program to crash if it exceeds mainFrame[] element access
   //move this out of main
-  if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
-  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-    if(FmIndex < mainFrame.length-1){
-      println("computers");
-      FmIndex++;
-      println(FmIndex);
-      for(int i = 0; i < TotalColRow; i ++){
-        //this looks redundant pls check 
-        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-        println(mainFrame[FmIndex].storeBeadColor[i]); 
-      }
-    }
-  }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
-  mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-    if(FmIndex > 0){
-      println("more compies");
-      FmIndex--;
-      println(FmIndex); 
-      for(int i = 0; i < TotalColRow; i ++){
-        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-        println(mainFrame[FmIndex].storeBeadColor[i]);
-      }
-    }
-   }
+//  if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
+//  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
+//  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
+//    if(FmIndex < mainFrame.length-1){
+//      FmIndex++;
+//      println(FmIndex);
+//      for(int i = 0; i < TotalColRow; i ++){
+//        //this looks redundant pls check 
+//        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
+//        println(mainFrame[FmIndex].storeBeadColor[i]); 
+//      }
+//    }
+//  }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
+//  mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
+//   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
+//    if(FmIndex > 0){
+//      FmIndex--;
+//      println(FmIndex); 
+//      for(int i = 0; i < TotalColRow; i ++){
+//        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
+//        println(mainFrame[FmIndex].storeBeadColor[i]);
+//      }
+//    }
+//   }
+mainControls.changeFrame();
 }
 
 void mousePressed(){
