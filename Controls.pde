@@ -37,11 +37,10 @@ class Controls{
     if(FmIndex < tempFrame.length-1){
       FmIndex++;
       println("this is index " + FmIndex);
-      for(int i = 0; i < TotalColRow; i++){
-        //this looks redundant pls check 
+      //for(int i = 0; i < TotalColRow; i++){ 
         tempFrame[FmIndex].fmDrawBead();
-        println(tempFrame[FmIndex].storeBeadColor[i]); 
-      }
+        //println(tempFrame[FmIndex].storeBeadColor[i]); 
+      //}
     }
   }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
   mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
@@ -49,10 +48,10 @@ class Controls{
     if(FmIndex > 0){
       FmIndex--;
       println("this is index " + FmIndex); 
-      for(int i = 0; i < TotalColRow; i ++){
+      //for(int i = 0; i < TotalColRow; i ++){
         tempFrame[FmIndex].fmDrawBead();
-        println(tempFrame[FmIndex].storeBeadColor[i]);
-      }
+        //println(tempFrame[FmIndex].storeBeadColor[i]);
+      //}
     }
    }
   }

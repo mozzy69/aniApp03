@@ -48,8 +48,8 @@ void setup(){
   
   //This will be set through the interface
   //here for illustrative purposes
-  Columns = 3;
-  Rows = 3;
+  Columns = 5;
+  Rows = 5;
   
   FmIndex = 0;
   //Set BeadSize based on Device Display
