@@ -159,7 +159,7 @@ void mouseReleased(){
 //      }
 //    }
 //   }
-mainControls.changeFrame();
+mainControls.changeFrame(mainFrame);
 }
 
 void mousePressed(){

@@ -38,7 +38,6 @@ class Frame{
         storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
       }else if(Initialize){
         beadColorFm = beadColorFmNew;        
-        // fmBeads[i].drawBead(beadColorFm);
         storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
       }//End conditional
    }//End loop
@@ -46,10 +45,10 @@ class Frame{
    return storeBeadColor;
   }//End drawFrame()
   
-  void fmDrawBead(color beadColorFmNew){
+  void fmDrawBead(){
     for(int i = 0; i < totalBeads; i++){
-      beadColorFm = beadColorFmNew;
-      fmBeads[i].drawBead(beadColorFm);
+      //beadColorFm = beadColorFmNew;
+      fmBeads[i].drawBead(storeBeadColor[i]);
     }
   }
   
