@@ -1,8 +1,8 @@
 class PickColor{
 // Note functional yet
   //Fields 
-  float xLocB;
-  float yLocB;
+  //float xLocB;
+  //float yLocB;
   float sizeB;
   color bomvana, mnyama, mhlophe, reflection, 
   green, bomvu, lubhelu, luhlaza, ntsundu, orenji, 
@@ -24,20 +24,33 @@ class PickColor{
   mhlophe = color(255), //white -d
   };
   
+  color returnedColor;
+  
 //  Constructor
 
-  PickColor(float tempxLocB, float tempyLocB, float tempSizeB){
-    xLocB = tempxLocB;
-    yLocB = tempyLocB;
+  PickColor(float tempSizeB){
+    //xLocB = tempxLocB;
+    //yLocB = tempyLocB;
     sizeB = tempSizeB;
   }
   
   void drawPickColor(){
     for(int i = 0; i < colorList.length; i++){
       fill(colorList[i]);
-      rect(xLocB*i, yLocB, sizeB, sizeB);
+      rect((width/colorList.length)*i, height-(BeadSize+sizeB), sizeB, sizeB);
       //return colorList;
     }
+  }
+  
+  color activateColor(){
+   for(int i=0; i < colorList.length; i++){ 
+    if(mouseX > (width/colorList.length)*i && mouseY > height-(BeadSize+sizeB)
+    && mouseX < ((width/colorList.length)*i) + sizeB && mouseY < height-BeadSize){
+      returnedColor = colorList[i];
+    }
+   }
+   println(returnedColor);
+   return returnedColor;
   }
   
 }

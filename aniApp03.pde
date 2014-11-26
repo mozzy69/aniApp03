@@ -24,6 +24,7 @@ PImage Logo;
 
 PFont HeaderFont;
 
+color activeColor;
 
 /*Currently the method for drawing to the frame is needed to be addressed
 the values for each beads color are being stored in Frame.storeBeadColor() 
@@ -48,8 +49,8 @@ void setup(){
   
   //This will be set through the interface
   //here for illustrative purposes
-  Columns = 5;
-  Rows = 5;
+  Columns = 15;
+  Rows = 15;
   
   FmIndex = 0;
   //Set BeadSize based on Device Display
@@ -62,8 +63,10 @@ void setup(){
     BeadSize = height/(Rows + 4);
     VertOrient = false;
   }
+
+//reimplement before meeting tomorrow  
   
-  //Header stuff needs to go into header class/////////////////
+//  //Header stuff needs to go into header class/////////////////
   HeaderHeight = int((height/100)*10);
   //Images
   HeaderShadow = loadImage("HeadShadow.png");
@@ -94,7 +97,7 @@ void setup(){
   mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
   mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   
-  colorPicker = new PickColor(BeadSize, height-50, (BeadSize*Columns)/14);
+  colorPicker = new PickColor((BeadSize*Columns)/14);
   colorPicker.drawPickColor();
   
   //Draw Main Controls Forward, Backward..
@@ -111,62 +114,19 @@ void setup(){
 //------------------------------------------------------------------------------------//
 
 void draw(){
-  
- 
-  //drawFrame returns an array of color values
-  //remove from array and remove return data type and color argument eg
-  //mainFrame[FmIndex].drawFrame() // to revert to original
- 
-  /*
-  if(mouseX>0 && mouseX<width/4){
-    mainFrame[0].drawFrame();
-    println("left");
-  }else if(mouseX<width&& mouseX>width/2){
-    mainFrame[1].drawFrame();
-    println("right");
-  }
- */ 
- //two temp buttons at the bottom of the window
- // these buttons need to move to the controls objects to be made
-
+  //Nuthin//
 }
 
 void mouseReleased(){
-  //This is a debug to test the forward and previous buttons below the canvas
-  //FmIndex will cause the program to crash if it exceeds mainFrame[] element access
-  //move this out of main
-//  if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
-//  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-//  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-//    if(FmIndex < mainFrame.length-1){
-//      FmIndex++;
-//      println(FmIndex);
-//      for(int i = 0; i < TotalColRow; i ++){
-//        //this looks redundant pls check 
-//        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-//        println(mainFrame[FmIndex].storeBeadColor[i]); 
-//      }
-//    }
-//  }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
-//  mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-//   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+(height-(BeadSize*Rows)+HeaderHeight)/3){
-//    if(FmIndex > 0){
-//      FmIndex--;
-//      println(FmIndex); 
-//      for(int i = 0; i < TotalColRow; i ++){
-//        mainFrame[FmIndex].fmDrawBead(mainFrame[FmIndex].storeBeadColor[i]);
-//        println(mainFrame[FmIndex].storeBeadColor[i]);
-//      }
-//    }
-//   }
-mainControls.changeFrame(mainFrame);
+  mainControls.changeFrame(mainFrame);
+  activeColor = colorPicker.activateColor();
 }
 
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
   if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
-   mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+   mainFrame[FmIndex].drawFrame(activeColor);//Pass bead color from color picker to here
   }
 //  }
 }
@@ -176,7 +136,7 @@ void mouseDragged(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
 if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
- mainFrame[FmIndex].drawFrame(color(234,125,12));//Pass bead color from color picker to here
+ mainFrame[FmIndex].drawFrame(activeColor);//Pass bead color from color picker to here
 }//DRY see void mousePressed()
 //  }
 }
