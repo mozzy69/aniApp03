@@ -48,8 +48,10 @@ class Header{
   String headerMouse(){
     if(mouseX > 0 && mouseY > 0 && mouseX < this.headerSansShad && mouseY < this.headerSansShad){
       headerMousePos = "logo";
+      appState = headerMousePos;
     }else if(mouseX > width - this.headerSansShad && mouseY > 0 && mouseX < width && mouseY < this.headerSansShad) {
       headerMousePos = "hamburger";
+      appState = headerMousePos;
     }
     //println(headerMousePos);
     return headerMousePos;

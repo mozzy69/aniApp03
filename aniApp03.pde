@@ -115,6 +115,8 @@ void setup(){
   for(int i = 0; i < TotalColRow; i++){
     mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
   }
+  
+  appState = "draw";
 }
 
 //------------------------------------------------------------------------------------//
@@ -124,15 +126,17 @@ void draw(){
 }
 
 void mouseReleased(){
-  mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
-  activeColor = colorPicker.activateColor();
-  mainHeader.headerMouse();
+  if(appState == "draw"){
+    mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
+    activeColor = colorPicker.activateColor();
+    mainHeader.headerMouse();
+  }
 }
 
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-  if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight)){
+  if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw"){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
 //  }
@@ -146,7 +150,7 @@ void mouseDragged(){
 // mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
 //}//DRY see void mousePressed()
 //  }
-if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight)){
+if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw"){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
 
