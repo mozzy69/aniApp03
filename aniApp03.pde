@@ -19,6 +19,8 @@ boolean VertOrient;
 //Frame Index number of frame currently being accessed eg drawn to screen
 int FmIndex;
 
+String appState;
+
 //PImage HeaderShadow;
 //PImage Logo;
 
@@ -76,14 +78,14 @@ void setup(){
   //int HeaderSansShad = HeaderHeight - HeaderShadow.height;
   ///////////////////////////////////////////
   //Display Logo
-  mainHeader.drawLogo(mainHeader.headerSansShad);
+  mainHeader.drawLogo();
   /*
   Logo = loadImage("logo.png");
   //Logo.resize(25, 0);
   image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
   */
   //Header Text
-  mainHeader.drawHeaderText(mainHeader.headerSansShad);
+  mainHeader.drawHeaderText();
   /*
   HeaderFont = createFont("3Dumb.ttf", HeaderSansShad/2 );
   textFont(HeaderFont);
@@ -91,6 +93,7 @@ void setup(){
   text("CREATIVE CODE", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
   text("ANIMATOR APP", HeaderSansShad, HeaderSansShad - 5);
   */
+  mainHeader.drawHamBurger();
   
   //Setup Frames will be through interface have a setup button or hamburger button in header for this
   //here for illustrative purposes
@@ -123,12 +126,13 @@ void draw(){
 void mouseReleased(){
   mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
   activeColor = colorPicker.activateColor();
+  mainHeader.headerMouse();
 }
 
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-  if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
+  if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight)){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
 //  }
@@ -138,9 +142,13 @@ void mousePressed(){
 void mouseDragged(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
- mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
-}//DRY see void mousePressed()
+//if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
+// mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
+//}//DRY see void mousePressed()
 //  }
+if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight)){
+   mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
+  }
+
 }
 

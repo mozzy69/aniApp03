@@ -7,6 +7,7 @@ class Frame{
   int totalBeads;
   color beadColorFm;
   color[] storeBeadColor;
+  boolean frameMousePos;
   
   //Constructor
   Frame(int tempFmRows, int tempFmCols, int tempTotalBeads){
@@ -50,6 +51,14 @@ class Frame{
       //beadColorFm = beadColorFmNew;
       fmBeads[i].drawBead(storeBeadColor[i], HeaderHeightTemp);
     }
+  }
+  
+  boolean frameMouse(int headerHeightTemp){
+     if(mouseX > BeadSize && mouseY > headerHeightTemp + BeadSize 
+     && mouseX < BeadSize * (Columns+1) && mouseY < headerHeightTemp + BeadSize * (Rows+1)){
+     frameMousePos = true;//Pass bead color from color picker to here
+    }
+    return frameMousePos;
   }
   
 }//End Frame class definition/////////////////////////////////////////////////////////////////
