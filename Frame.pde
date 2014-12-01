@@ -27,28 +27,28 @@ class Frame{
   
   //Methods
   //Main method for drawing a frame consisting of sets of beads
-  color[] drawFrame(color beadColorFmNew){
+  color[] drawFrame(color beadColorFmNew, int HeaderHeightTemp){
   for(int i = 0; i < totalBeads; i++){
       if(mousePressed && 
       mouseX > fmBeads[i].xLocB + BeadSize && 
       mouseX < fmBeads[i].xLocB + BeadSize + fmBeads[i].sizeB && 
-      mouseY > fmBeads[i].yLocB + BeadSize + HeaderHeight && 
-      mouseY < fmBeads[i].yLocB + BeadSize + HeaderHeight + fmBeads[i].sizeB){
+      mouseY > fmBeads[i].yLocB + BeadSize + HeaderHeightTemp && 
+      mouseY < fmBeads[i].yLocB + BeadSize + HeaderHeightTemp + fmBeads[i].sizeB){
         beadColorFm = beadColorFmNew;
-        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
+        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm, HeaderHeightTemp);
       }else if(Initialize){
         beadColorFm = beadColorFmNew;        
-        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm);
+        storeBeadColor[i] = fmBeads[i].drawBead(beadColorFm, HeaderHeightTemp);
       }//End conditional
    }//End loop
    Initialize = false;
    return storeBeadColor;
   }//End drawFrame()
   
-  void fmDrawBead(){
+  void fmDrawBead(int HeaderHeightTemp){
     for(int i = 0; i < totalBeads; i++){
       //beadColorFm = beadColorFmNew;
-      fmBeads[i].drawBead(storeBeadColor[i]);
+      fmBeads[i].drawBead(storeBeadColor[i], HeaderHeightTemp);
     }
   }
   

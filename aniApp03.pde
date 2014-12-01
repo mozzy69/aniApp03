@@ -1,7 +1,7 @@
 //comments ending in ** are temps
 //Globals
 Frame[] mainFrame;
-Header myHeader;
+Header mainHeader;
 PickColor colorPicker;
 Controls mainControls;
 //See BeadSize in setup()**
@@ -11,7 +11,7 @@ int Rows;
 //columns and rows total accessible from main**
 int TotalColRow;
 //Title of app**
-int HeaderHeight;
+//int HeaderHeight;
 //Set to draw grid at the beginning then set to false in drawFrame method**
 boolean Initialize;
 //Detect orientation use this for layout 
@@ -19,20 +19,13 @@ boolean VertOrient;
 //Frame Index number of frame currently being accessed eg drawn to screen
 int FmIndex;
 
-PImage HeaderShadow;
-PImage Logo;
+//PImage HeaderShadow;
+//PImage Logo;
 
-PFont HeaderFont;
+//PFont HeaderFont;
 
 color activeColor;
 
-/*Currently the method for drawing to the frame is needed to be addressed
-the values for each beads color are being stored in Frame.storeBeadColor() 
-a color picker needs to be implemented
-beads need to be redrawn to the screen with the correct colors
-drawFrame method in draw() was changed to return a color
-this can be changed back to original, which without the returned data will draw
-to the canvas as expected*/
 
 //------------------------------------------------------------------------------------//
 void setup(){
@@ -64,30 +57,40 @@ void setup(){
     VertOrient = false;
   }
 
-//reimplement before meeting tomorrow  
   
 //  //Header stuff needs to go into header class/////////////////
-  HeaderHeight = int((height/100)*10);
+  //HeaderHeight = int((height/100)*10);
+  
   //Images
+  /*
   HeaderShadow = loadImage("HeadShadow.png");
   //myHeader.drawHeader();
   for(int i = 0; i < width; i++){
-      image(HeaderShadow, i, HeaderHeight - HeaderShadow.height);
+      image(HeaderShadow, i, mainHeader.headerHeight - HeaderShadow.height);
     }
+   */
+  mainHeader = new Header(height, "HeadShadow.png", "logo.png"); 
+   
+  mainHeader.drawHeaderShadow(mainHeader.headerHeight);  
   
-  int HeaderSansShad = HeaderHeight - HeaderShadow.height;
+  //int HeaderSansShad = HeaderHeight - HeaderShadow.height;
   ///////////////////////////////////////////
   //Display Logo
+  mainHeader.drawLogo(mainHeader.headerSansShad);
+  /*
   Logo = loadImage("logo.png");
   //Logo.resize(25, 0);
   image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
-  
+  */
   //Header Text
+  mainHeader.drawHeaderText(mainHeader.headerSansShad);
+  /*
   HeaderFont = createFont("3Dumb.ttf", HeaderSansShad/2 );
   textFont(HeaderFont);
   fill(100);
   text("CREATIVE CODE", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
   text("ANIMATOR APP", HeaderSansShad, HeaderSansShad - 5);
+  */
   
   //Setup Frames will be through interface have a setup button or hamburger button in header for this
   //here for illustrative purposes
@@ -102,12 +105,12 @@ void setup(){
   
   //Draw Main Controls Forward, Backward..
   mainControls = new Controls("myControls");
-  mainControls.drawBackwardControl();
-  mainControls.drawForwardControl();
+  mainControls.drawBackwardControl(mainHeader.headerHeight);
+  mainControls.drawForwardControl(mainHeader.headerHeight);
   
  //More temp setup to initialize beads
   for(int i = 0; i < TotalColRow; i++){
-    mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+    mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
   }
 }
 
@@ -118,15 +121,15 @@ void draw(){
 }
 
 void mouseReleased(){
-  mainControls.changeFrame(mainFrame);
+  mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
   activeColor = colorPicker.activateColor();
 }
 
 void mousePressed(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-  if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
-   mainFrame[FmIndex].drawFrame(activeColor);//Pass bead color from color picker to here
+  if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
+   mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
 //  }
 }
@@ -135,8 +138,8 @@ void mousePressed(){
 void mouseDragged(){
 //  for(int i = 0; i < TotalColRow; i++){
 // mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-if(mouseX > BeadSize && mouseY > HeaderHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < HeaderHeight + BeadSize * (Rows+1)){
- mainFrame[FmIndex].drawFrame(activeColor);//Pass bead color from color picker to here
+if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
+ mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
 }//DRY see void mousePressed()
 //  }
 }

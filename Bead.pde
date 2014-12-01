@@ -14,9 +14,9 @@ class Bead{
     sizeB = tempSizeB;
   }
   
-  color drawBead(color beadColor){
+  color drawBead(color beadColor, int HeaderHeightTemp){
     fill(beadColor);
-    rect(xLocB + BeadSize, yLocB + BeadSize + HeaderHeight, sizeB, sizeB);
+    rect(xLocB + BeadSize, yLocB + BeadSize + HeaderHeightTemp, sizeB, sizeB);
     return beadColor;
   }
   

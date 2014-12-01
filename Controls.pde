@@ -10,16 +10,16 @@ class Controls{
   }
   
   //Methods
-  void drawForwardControl(){
+  void drawForwardControl(int HeaderHeightTemp){
     fill(125);
-    rect(BeadSize*(Columns+1)-(BeadSize*Columns)/3, HeaderHeight+BeadSize+(Rows*BeadSize), 
-    (BeadSize*Columns)/3, HeaderHeight);
+    rect(BeadSize*(Columns+1)-(BeadSize*Columns)/3, HeaderHeightTemp+BeadSize+(Rows*BeadSize), 
+    (BeadSize*Columns)/3, HeaderHeightTemp);
   }
   
-  void drawBackwardControl(){
+  void drawBackwardControl(int HeaderHeightTemp){
     fill(125);
-    rect(BeadSize, HeaderHeight+BeadSize+(Rows*BeadSize), 
-    (BeadSize*Columns)/3, HeaderHeight);
+    rect(BeadSize, HeaderHeightTemp+BeadSize+(Rows*BeadSize), 
+    (BeadSize*Columns)/3, HeaderHeightTemp);
   }
   
   void drawPlayControl(){
@@ -30,26 +30,26 @@ class Controls{
   //Nothing Yet
   }
   
-  void changeFrame(Frame[] tempFrame){
+  void changeFrame(Frame[] tempFrame, int HeaderHeightTemp){
    if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&
-  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-  mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+HeaderHeight){
+  mouseX < BeadSize*(Columns+1) && mouseY > HeaderHeightTemp+BeadSize+(Rows*BeadSize) && 
+  mouseY < HeaderHeightTemp+BeadSize+(Rows*BeadSize)+HeaderHeightTemp){
     if(FmIndex < tempFrame.length-1){
       FmIndex++;
       println("this is index " + FmIndex);
       //for(int i = 0; i < TotalColRow; i++){ 
-        tempFrame[FmIndex].fmDrawBead();
+        tempFrame[FmIndex].fmDrawBead(HeaderHeightTemp);
         //println(tempFrame[FmIndex].storeBeadColor[i]); 
       //}
     }
   }else if(mouseX > BeadSize && mouseX < BeadSize + (BeadSize*Columns)/3 &&
-  mouseY > HeaderHeight+BeadSize+(Rows*BeadSize) && 
-   mouseY < HeaderHeight+BeadSize+(Rows*BeadSize)+HeaderHeight){
+  mouseY > HeaderHeightTemp+BeadSize+(Rows*BeadSize) && 
+   mouseY < HeaderHeightTemp+BeadSize+(Rows*BeadSize)+HeaderHeightTemp){
     if(FmIndex > 0){
       FmIndex--;
       println("this is index " + FmIndex); 
       //for(int i = 0; i < TotalColRow; i ++){
-        tempFrame[FmIndex].fmDrawBead();
+        tempFrame[FmIndex].fmDrawBead(HeaderHeightTemp);
         //println(tempFrame[FmIndex].storeBeadColor[i]);
       //}
     }
