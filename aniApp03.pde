@@ -1,33 +1,29 @@
-//comments ending in ** are temps
+
 //Globals
+Bead mainBead;
 Frame[] mainFrame;
 Header mainHeader;
 PickColor colorPicker;
 Controls mainControls;
-//See BeadSize in setup()**
+
+//Global Var
 int BeadSize;
 int Columns;
 int Rows;
-//columns and rows total accessible from main**
+//TotalColRow = Columns * Rows
 int TotalColRow;
-//Title of app**
-//int HeaderHeight;
 //Set to draw grid at the beginning then set to false in drawFrame method**
 boolean Initialize;
 //Detect orientation use this for layout 
 boolean VertOrient;
 //Frame Index number of frame currently being accessed eg drawn to screen
 int FmIndex;
-
+//State of App draw, logo, hamburger
 String appState;
-
-//PImage HeaderShadow;
-//PImage Logo;
-
-//PFont HeaderFont;
+boolean appTransition;
+int aniSpeed = 200;
 
 color activeColor;
-
 
 //------------------------------------------------------------------------------------//
 void setup(){
@@ -44,55 +40,22 @@ void setup(){
   
   //This will be set through the interface
   //here for illustrative purposes
-  Columns = 15;
-  Rows = 15;
+  Columns = 10;
+  Rows = 10;
   
   FmIndex = 0;
   //Set BeadSize based on Device Display
   TotalColRow = Columns * Rows;
-  //Set BeadSize and Determine Display Orientation
-  if (width<height){
-    BeadSize = width/(Columns + 2);
-    VertOrient = true;
-  }else{
-    BeadSize = height/(Rows + 4);
-    VertOrient = false;
-  }
+  
+  //set BeadSize and Screen Orientation
+  mainBead = new Bead(0,0,0);
+  BeadSize = mainBead.setBeadSize(Columns, Rows);
+  VertOrient = mainBead.setOrient();
 
-  
-//  //Header stuff needs to go into header class/////////////////
-  //HeaderHeight = int((height/100)*10);
-  
-  //Images
-  /*
-  HeaderShadow = loadImage("HeadShadow.png");
-  //myHeader.drawHeader();
-  for(int i = 0; i < width; i++){
-      image(HeaderShadow, i, mainHeader.headerHeight - HeaderShadow.height);
-    }
-   */
   mainHeader = new Header(height, "HeadShadow.png", "logo.png"); 
-   
   mainHeader.drawHeaderShadow(mainHeader.headerHeight);  
-  
-  //int HeaderSansShad = HeaderHeight - HeaderShadow.height;
-  ///////////////////////////////////////////
-  //Display Logo
   mainHeader.drawLogo();
-  /*
-  Logo = loadImage("logo.png");
-  //Logo.resize(25, 0);
-  image(Logo, 0, 0, HeaderSansShad, HeaderSansShad);
-  */
-  //Header Text
   mainHeader.drawHeaderText();
-  /*
-  HeaderFont = createFont("3Dumb.ttf", HeaderSansShad/2 );
-  textFont(HeaderFont);
-  fill(100);
-  text("CREATIVE CODE", HeaderSansShad, HeaderSansShad/2 -5);//-5 removes the shadow/border area around logo 
-  text("ANIMATOR APP", HeaderSansShad, HeaderSansShad - 5);
-  */
   mainHeader.drawHamBurger();
   
   //Setup Frames will be through interface have a setup button or hamburger button in header for this
@@ -103,6 +66,7 @@ void setup(){
   mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
   mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   
+  //Color Picker
   colorPicker = new PickColor((BeadSize*Columns)/14);
   colorPicker.drawPickColor();
   
@@ -117,20 +81,29 @@ void setup(){
   }
   
   appState = "draw";
+  
 }
 
 //------------------------------------------------------------------------------------//
 
 void draw(){
   //Nuthin//
+  if (appTransition){
+    mainHeader.animateHeaderOpen(aniSpeed);
+    aniSpeed+=aniSpeed;
+  }
+  
+  if(appState == "headerDown" && appTransition){
+    mainHeader.animateHeaderClose(aniSpeed);
+    aniSpeed+=aniSpeed/2; 
+    println("yello bellies");
+  }
 }
-
+//---------------------------------------------------------------------------------------//
 void mouseReleased(){
-  if(appState == "draw"){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
-    mainHeader.headerMouse();
-  }
+    appState = mainHeader.headerMouse(appState);
 }
 
 void mousePressed(){

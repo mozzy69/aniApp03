@@ -6,7 +6,6 @@ class Header{
   PImage Logo;
   PFont  HeaderFont;
   int boarder;
-  String headerMousePos;
   
 //  Constructor
 
@@ -19,7 +18,7 @@ class Header{
   }
 
 //Methods
-
+//Draw The Header's Shadow////////////////////////////////////////////////////
   PImage drawHeaderShadow(int HeaderHeightTemp){
     //HeaderShadow = loadImage("HeadShadow.png");
     for(int i = 0; i < width; i++){
@@ -28,10 +27,12 @@ class Header{
     return HeaderShadow;
   } 
   
+//Draw the logo//////////////////////////////////////////////////////////////  
   void drawLogo(){
     image(Logo, 0, 0, this.headerSansShad, this.headerSansShad);
   }
-   
+
+//Render the text////////////////////////////////////////////////////////////   
   void drawHeaderText(){
     HeaderFont = createFont("3Dumb.ttf", this.headerSansShad/2 );
     textFont(HeaderFont);
@@ -40,21 +41,63 @@ class Header{
     text("ANIMATOR APP", this.headerSansShad, this.headerSansShad - this.boarder);  
   }
   
+//Draw the hamburger button//////////////////////////////////////////////////  
   void drawHamBurger(){
     fill(115);
     rect(width - this.headerSansShad, 0, this.headerSansShad, this.headerSansShad, this.boarder);
   }
   
-  String headerMouse(){
+//Determine the position of the mouse over hamburger or logo/////////////////  
+  String headerMouse(String tempAppState){
     if(mouseX > 0 && mouseY > 0 && mouseX < this.headerSansShad && mouseY < this.headerSansShad){
-      headerMousePos = "logo";
-      appState = headerMousePos;
+      if(tempAppState == "logo"){
+        tempAppState = "headerDown";
+      }else{
+        tempAppState = "logo";
+        appTransition = true;
+      }
     }else if(mouseX > width - this.headerSansShad && mouseY > 0 && mouseX < width && mouseY < this.headerSansShad) {
-      headerMousePos = "hamburger";
-      appState = headerMousePos;
+      if(tempAppState == "hamburger"){
+        tempAppState = "headerDown";
+      }else{
+        tempAppState = "hamburger";
+        appTransition = true;
+      }
     }
     //println(headerMousePos);
-    return headerMousePos;
+    return tempAppState;
+  }
+  
+//Drop the header down (open it)/////////////////////////////////////////////  
+  void animateHeaderOpen(int tempHeight){
+    if (tempHeight < height && (appState == "hamburger" || appState == "logo")){
+      noStroke();
+      fill(235);
+      rect(0, this.headerHeight - this.HeaderShadow.height, width, tempHeight);
+      for(int i = 0; i < width; i++){
+        image(this.HeaderShadow, i, (this.headerHeight - this.HeaderShadow.height)+tempHeight);
+      } 
+      //tempHeight+=tempHeight;
+    }else if (tempHeight >= height && (appState == "hamburger" || appState == "logo")){
+    tempHeight = 
+    appTransition = false;
+    appState = "headerDown";
+    println(appTransition + " " + appState);
+    }
   }
 
-}
+//Raise the header up (close it)//////////////////////////////////////////////
+    void animateHeaderClose(int tempHeight){
+      if (tempHeight >= height && appState == "headerDown"){
+      noStroke();
+      fill(235);
+      rect(0, this.headerHeight - this.HeaderShadow.height, width, tempHeight);
+      for(int i = 0; i < width; i++){
+        image(this.HeaderShadow, i, (this.headerHeight - this.HeaderShadow.height)+tempHeight);
+        }
+      println("hello spencer");
+      //tempHeight-=tempHeight/2;
+      }  
+  }
+//End Methods////////////////////////////////////////////////////////////////////////////
+}//End Header Class
