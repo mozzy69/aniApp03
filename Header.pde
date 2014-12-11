@@ -50,18 +50,16 @@ class Header{
 //Determine the position of the mouse over hamburger or logo/////////////////  
   String headerMouse(String tempAppState){
     if(mouseX > 0 && mouseY > 0 && mouseX < this.headerSansShad && mouseY < this.headerSansShad){
-      if(tempAppState == "logo"){
+      if(tempAppState == "headerClose"){
         tempAppState = "headerDown";
-      }else{
-        tempAppState = "logo";
-        appTransition = true;
+      }else if (tempAppState == "headerOpen"){
+        tempAppState = "headerUp";
       }
     }else if(mouseX > width - this.headerSansShad && mouseY > 0 && mouseX < width && mouseY < this.headerSansShad) {
-      if(tempAppState == "hamburger"){
+      if(tempAppState == "headerClose"){
         tempAppState = "headerDown";
-      }else{
-        tempAppState = "hamburger";
-        appTransition = true;
+      }else if (tempAppState == "headerOpen"){
+        tempAppState = "headerUp";
       }
     }
     //println(headerMousePos);
@@ -70,34 +68,44 @@ class Header{
   
 //Drop the header down (open it)/////////////////////////////////////////////  
   void animateHeaderOpen(int tempHeight){
-    if (tempHeight < height && (appState == "hamburger" || appState == "logo")){
+    if (tempHeight < height - this.HeaderShadow.height){
       noStroke();
       fill(235);
       rect(0, this.headerHeight - this.HeaderShadow.height, width, tempHeight);
       for(int i = 0; i < width; i++){
         image(this.HeaderShadow, i, (this.headerHeight - this.HeaderShadow.height)+tempHeight);
       } 
-      //tempHeight+=tempHeight;
-    }else if (tempHeight >= height && (appState == "hamburger" || appState == "logo")){
-    tempHeight = 
-    appTransition = false;
-    appState = "headerDown";
-    println(appTransition + " " + appState);
+      println(tempHeight);
+    }else if (tempHeight >= height - this.HeaderShadow.height){
+    tempHeight = height - this.HeaderShadow.height;
+     rect(0, this.headerHeight - this.HeaderShadow.height, width, tempHeight - this.HeaderShadow.height);
+      for(int i = 0; i < width; i++){
+        image(this.HeaderShadow, i, height - this.HeaderShadow.height);
+        } 
+    headerState = "headerOpen";
     }
   }
 
 //Raise the header up (close it)//////////////////////////////////////////////
     void animateHeaderClose(int tempHeight){
-      if (tempHeight >= height && appState == "headerDown"){
+      if (tempHeight > this.headerHeight){
       noStroke();
       fill(235);
       rect(0, this.headerHeight - this.HeaderShadow.height, width, tempHeight);
       for(int i = 0; i < width; i++){
-        image(this.HeaderShadow, i, (this.headerHeight - this.HeaderShadow.height)+tempHeight);
+        image(this.HeaderShadow, i, height - tempHeight);
         }
-      println("hello spencer");
+        println("hello spencer");
+      }else if (tempHeight <= this.headerHeight){
+          tempHeight = this.headerHeight;
+          for(int i = 0; i < width; i++){
+            image(this.HeaderShadow, i, tempHeight);
+          }
+          headerState = "headerClose";
+        }
+      
       //tempHeight-=tempHeight/2;
-      }  
+        
   }
 //End Methods////////////////////////////////////////////////////////////////////////////
 }//End Header Class

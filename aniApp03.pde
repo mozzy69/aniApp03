@@ -19,6 +19,7 @@ boolean VertOrient;
 //Frame Index number of frame currently being accessed eg drawn to screen
 int FmIndex;
 //State of App draw, logo, hamburger
+String headerState;
 String appState;
 boolean appTransition;
 int aniSpeed = 200;
@@ -52,6 +53,8 @@ void setup(){
   BeadSize = mainBead.setBeadSize(Columns, Rows);
   VertOrient = mainBead.setOrient();
 
+
+  //Set Properties for the main header
   mainHeader = new Header(height, "HeadShadow.png", "logo.png"); 
   mainHeader.drawHeaderShadow(mainHeader.headerHeight);  
   mainHeader.drawLogo();
@@ -80,22 +83,26 @@ void setup(){
     mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
   }
   
+  headerState = "headerClose";
   appState = "draw";
-  
 }
 
 //------------------------------------------------------------------------------------//
 
 void draw(){
   //Nuthin//
-  if (appTransition){
+ 
+  if (headerState == "headerDown"){
     mainHeader.animateHeaderOpen(aniSpeed);
     aniSpeed+=aniSpeed;
   }
   
-  if(appState == "headerDown" && appTransition){
+  if(headerState == "headerUp"){
+     for(int i = 0; i < TotalColRow; i++){
+      mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
+      }
     mainHeader.animateHeaderClose(aniSpeed);
-    aniSpeed+=aniSpeed/2; 
+    aniSpeed-=aniSpeed/2; 
     println("yello bellies");
   }
 }
@@ -103,7 +110,7 @@ void draw(){
 void mouseReleased(){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
-    appState = mainHeader.headerMouse(appState);
+    headerState = mainHeader.headerMouse(headerState);
 }
 
 void mousePressed(){
