@@ -23,7 +23,6 @@ String headerState;
 String appState;
 boolean appTransition;
 int aniSpeed = 200;
-
 color activeColor;
 
 //------------------------------------------------------------------------------------//
@@ -92,18 +91,24 @@ void setup(){
 void draw(){
   //Nuthin//
  
+ 
+ 
   if (headerState == "headerDown"){
+    //background(235);
+    //Initialize = true;
+    //stroke(255);
+    //mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderOpen(aniSpeed);
     aniSpeed+=aniSpeed;
   }
   
   if(headerState == "headerUp"){
-     for(int i = 0; i < TotalColRow; i++){
-      mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
-      }
+    background(235);
+    //Initialize = true;
+    stroke(255);
+    mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderClose(aniSpeed);
-    aniSpeed-=aniSpeed/2; 
-    println("yello bellies");
+    aniSpeed-=aniSpeed/2;
   }
 }
 //---------------------------------------------------------------------------------------//
@@ -114,22 +119,16 @@ void mouseReleased(){
 }
 
 void mousePressed(){
-//  for(int i = 0; i < TotalColRow; i++){
-// mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
+
   if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw"){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
-//  }
+  
 }
 
 
 void mouseDragged(){
-//  for(int i = 0; i < TotalColRow; i++){
-// mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i]);
-//if(mouseX > BeadSize && mouseY > mainHeader.headerHeight + BeadSize && mouseX < BeadSize * (Columns+1) && mouseY < mainHeader.headerHeight + BeadSize * (Rows+1)){
-// mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
-//}//DRY see void mousePressed()
-//  }
+
 if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw"){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }

@@ -46,6 +46,17 @@ class Frame{
    return storeBeadColor;
   }//End drawFrame()
   
+  
+    color[] drawFrameTrans(int HeaderHeightTemp){
+  for(int i = 0; i < totalBeads; i++){
+      if(headerState == "headerUp"){
+        storeBeadColor[i] = fmBeads[i].drawBead(storeBeadColor[i], HeaderHeightTemp);
+      }
+   }//End loop
+   noStroke();
+   return storeBeadColor;
+  }//End drawFrame()
+  
   void fmDrawBead(int HeaderHeightTemp){
     for(int i = 0; i < totalBeads; i++){
       //beadColorFm = beadColorFmNew;

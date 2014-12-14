@@ -62,7 +62,6 @@ class Header{
         tempAppState = "headerUp";
       }
     }
-    //println(headerMousePos);
     return tempAppState;
   }
   
@@ -102,10 +101,8 @@ class Header{
             image(this.HeaderShadow, i, tempHeight);
           }
           headerState = "headerClose";
+          //Initialize = true;
         }
-      
-      //tempHeight-=tempHeight/2;
-        
   }
 //End Methods////////////////////////////////////////////////////////////////////////////
 }//End Header Class
