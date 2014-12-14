@@ -94,12 +94,20 @@ class Header{
       for(int i = 0; i < width; i++){
         image(this.HeaderShadow, i, height - tempHeight);
         }
+        this.drawLogo();
+        this.drawHeaderText();
+        this.drawHamBurger();
+        colorPicker.drawPickColor();
         println("hello spencer");
       }else if (tempHeight <= this.headerHeight){
           tempHeight = this.headerHeight;
           for(int i = 0; i < width; i++){
             image(this.HeaderShadow, i, tempHeight);
           }
+          this.drawLogo();
+          this.drawHeaderText();
+          this.drawHamBurger();
+          colorPicker.drawPickColor();
           headerState = "headerClose";
           //Initialize = true;
         }

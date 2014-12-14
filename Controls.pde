@@ -26,9 +26,6 @@ class Controls{
   //Nothing yet
   }
   
-  void drawHamburgerControl(){
-  //Nothing Yet
-  }
   
   void changeFrame(Frame[] tempFrame, int HeaderHeightTemp){
    if(mouseX > BeadSize*(Columns+1)-(BeadSize*Columns)/3 &&

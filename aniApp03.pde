@@ -89,22 +89,30 @@ void setup(){
 //------------------------------------------------------------------------------------//
 
 void draw(){
-  //Nuthin//
- 
- 
  
   if (headerState == "headerDown"){
-    //background(235);
-    //Initialize = true;
-    //stroke(255);
-    //mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderOpen(aniSpeed);
     aniSpeed+=aniSpeed;
   }
   
-  if(headerState == "headerUp"){
+  if(headerState == "headerUp"){ 
+     
+    
+  ////////////////change cols and rows through menu////////   
+    Columns = 5;
+    Rows = 5;
+    TotalColRow = Columns * Rows;
+    BeadSize = mainBead.setBeadSize(Columns, Rows);
+    mainFrame = new Frame[4];
+    mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
+    mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
+    mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
+    mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
+  //////////////////////////////////////////////////////////
+  
+  
+    
     background(235);
-    //Initialize = true;
     stroke(255);
     mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderClose(aniSpeed);
