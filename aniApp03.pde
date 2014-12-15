@@ -69,7 +69,7 @@ void setup(){
   mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   
   //Color Picker
-  colorPicker = new PickColor((BeadSize*Columns)/14);
+  colorPicker = new PickColor((BeadSize*Columns)/7);
   colorPicker.drawPickColor();
   
   //Draw Main Controls Forward, Backward..
@@ -113,7 +113,7 @@ void draw(){
   
     
     background(235);
-    stroke(255);
+    //stroke(255);//add this again if you want stroke to appear on headerclose
     mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderClose(aniSpeed);
     aniSpeed-=aniSpeed/2;
@@ -121,9 +121,11 @@ void draw(){
 }
 //---------------------------------------------------------------------------------------//
 void mouseReleased(){
+  if(appState == "draw"){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
-    headerState = mainHeader.headerMouse(headerState);
+  }
+  headerState = mainHeader.headerMouse(headerState);
 }
 
 void mousePressed(){

@@ -35,17 +35,27 @@ class Header{
 
 //Render the text////////////////////////////////////////////////////////////   
   void drawHeaderText(){
-    HeaderFont = createFont("3Dumb.ttf", this.headerSansShad/2 );
+    HeaderFont = createFont("3Dumb.ttf", (this.headerSansShad/2)-boarder );
     textFont(HeaderFont);
     fill(100);
-    text("CREATIVE CODE", this.headerSansShad, this.headerSansShad/2 - this.boarder);//-5 removes the shadow/border area around logo 
-    text("ANIMATOR APP", this.headerSansShad, this.headerSansShad - this.boarder);  
+    textAlign(CENTER);
+    text("CREATIVE CODE", width/2, this.headerSansShad/2 - this.boarder);//-5 removes the shadow/border area around logo 
+    text("MOBILE ANIMATOR", width/2, this.headerSansShad - this.boarder);  
   }
   
 //Draw the hamburger button//////////////////////////////////////////////////  
   void drawHamBurger(){
-    fill(115);
-    rect(width - this.headerSansShad, 0, this.headerSansShad, this.headerSansShad, this.boarder);
+    fill(255);
+    rect(width - this.headerSansShad, boarder/2, this.headerSansShad - boarder, this.headerSansShad - boarder, this.boarder);
+    fill(200);
+    //Hamburger Graphic///////
+    noStroke();
+    rect(width - this.headerSansShad + boarder*0.5, this.headerSansShad - boarder *4, 
+        this.headerSansShad - boarder *2, boarder *3, boarder); 
+    rect(width - this.headerSansShad + boarder*0.5, ((boarder/2 + this.headerSansShad - boarder)/2)-boarder , 
+        this.headerSansShad - boarder *2, boarder * 3, boarder);    
+    rect(width - this.headerSansShad + boarder*0.5, boarder, 
+        this.headerSansShad - boarder *2, boarder * 3, boarder);    
   }
   
 //Determine the position of the mouse over hamburger or logo/////////////////  
@@ -84,6 +94,7 @@ class Header{
         } 
     headerState = "headerOpen";
     this.drawHeaderCreds();
+    this.drawColRowSlider();
     }
   }
 
@@ -130,7 +141,16 @@ class Header{
   text("By Lyndon Daniels", width/2, height/4 + (textAscent()+textDescent())*4);
   textSize((this.headerSansShad/2)/1.5);
   text("Based on \nMarion Walton's Animator App", width/2, height/4 + (textAscent()+textDescent())*8);
-  textAlign(BASELINE);
+  //textAlign(BASELINE);
+  }
+  
+  
+  void drawColRowSlider(){
+  stroke(15);
+  line(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2, width-BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);  
+  rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, width-BeadSize*2, BeadSize, boarder );
+  fill(100);
+  rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
   }
   
 //End Methods////////////////////////////////////////////////////////////////////////////
