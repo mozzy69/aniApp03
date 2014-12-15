@@ -6,6 +6,7 @@ class Header{
   PImage Logo;
   PFont  HeaderFont;
   PFont creditFont;
+  PFont interfaceFont;
   int boarder;
   
 //  Constructor
@@ -148,6 +149,9 @@ class Header{
   void drawColRowSlider(){
   stroke(15);
   line(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2, width-BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);  
+  interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/4);
+  textFont(interfaceFont);
+  text("Number of Columns and Rows", width/2, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);
   rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, width-BeadSize*2, BeadSize, boarder );
   fill(100);
   rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
