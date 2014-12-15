@@ -5,6 +5,7 @@ class Header{
   PImage HeaderShadow;
   PImage Logo;
   PFont  HeaderFont;
+  PFont creditFont;
   int boarder;
   
 //  Constructor
@@ -82,6 +83,7 @@ class Header{
         image(this.HeaderShadow, i, height - this.HeaderShadow.height);
         } 
     headerState = "headerOpen";
+    this.drawHeaderCreds();
     }
   }
 
@@ -109,8 +111,27 @@ class Header{
           this.drawHamBurger();
           colorPicker.drawPickColor();
           headerState = "headerClose";
+          appState = "draw";
           //Initialize = true;
         }
   }
+  
+  
+  //Draw Header Credits
+  void drawHeaderCreds(){
+  appState = "header";  
+  textAlign(CENTER);
+  fill(50);
+  text("Creative Code", width/2, height/4);
+  text("Mobile Animator", width/2, height/4 + textAscent()+textDescent());
+  
+  creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
+  textFont(creditFont);
+  text("By Lyndon Daniels", width/2, height/4 + (textAscent()+textDescent())*4);
+  textSize((this.headerSansShad/2)/1.5);
+  text("Based on \nMarion Walton's Animator App", width/2, height/4 + (textAscent()+textDescent())*8);
+  textAlign(BASELINE);
+  }
+  
 //End Methods////////////////////////////////////////////////////////////////////////////
 }//End Header Class
