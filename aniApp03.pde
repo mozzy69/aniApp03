@@ -25,6 +25,8 @@ boolean appTransition;
 int aniSpeed = 200;
 color activeColor;
 
+int mappedColRowSlider;
+
 //------------------------------------------------------------------------------------//
 void setup(){
   size(displayWidth, displayHeight);
@@ -99,8 +101,8 @@ void draw(){
      
     
   ////////////////change cols and rows through menu////////   
-    Columns = 5;
-    Rows = 5;
+    Columns = Rows = mappedColRowSlider;
+    //Rows = 5;
     TotalColRow = Columns * Rows;
     BeadSize = mainBead.setBeadSize(Columns, Rows);
     mainFrame = new Frame[4];
@@ -134,6 +136,11 @@ void mousePressed(){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
   
+  if(appState == "header" && mainHeader.mouseColRowSlider()){
+  println("groovy");
+  mainHeader.moveColRowSlider();
+  }
+  
 }
 
 
@@ -142,6 +149,13 @@ void mouseDragged(){
 if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw"){
    mainFrame[FmIndex].drawFrame(activeColor, mainHeader.headerHeight);//Pass bead color from color picker to here
   }
+  
+if(appState == "header" && mainHeader.mouseColRowSlider()){
+  println("groovy");
+  mainHeader.moveColRowSlider();
+  mappedColRowSlider = int(map(mainHeader.mapColRowSlider, BeadSize, width-BeadSize*2, 2, 51));
+  println(mappedColRowSlider);
+  }  
 
 }
 

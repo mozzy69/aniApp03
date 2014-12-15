@@ -8,6 +8,8 @@ class Header{
   PFont creditFont;
   PFont interfaceFont;
   int boarder;
+  boolean mouseColRowSliderPos;
+  float mapColRowSlider;
   
 //  Constructor
 
@@ -149,12 +151,28 @@ class Header{
   void drawColRowSlider(){
   stroke(15);
   line(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2, width-BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);  
-  interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/4);
+  interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/2);
   textFont(interfaceFont);
-  text("Number of Columns and Rows", width/2, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);
+  text("Columns and Rows", width/2, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);
   rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, width-BeadSize*2, BeadSize, boarder );
   fill(100);
   rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
+  }
+  
+  boolean mouseColRowSlider(){
+    if (mouseX > BeadSize && mouseY > (height/4 + (textAscent()+textDescent())*8) + BeadSize*4
+    && mouseX < width - BeadSize*2 && mouseY < (height/4 + (textAscent()+textDescent())*8) + BeadSize*4 + BeadSize){
+      mouseColRowSliderPos = true;
+    }else{
+      mouseColRowSliderPos = false;
+    }
+    return mouseColRowSliderPos;
+  }
+  
+  void moveColRowSlider(){
+  fill(100);
+  rect(mouseX, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
+  mapColRowSlider = mouseX;
   }
   
 //End Methods////////////////////////////////////////////////////////////////////////////
