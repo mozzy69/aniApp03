@@ -28,7 +28,7 @@ class Header{
     credsBaseline = height/4 + (textAscent()+textDescent())*8;
     //6 is the number of elements to include line, col row text, 
     //col row number, slider, frame text, spinner
-    afterCreds = (height - credsBaseline)/6;
+    afterCreds = (height - credsBaseline)/8;
   }
 
 //Methods
@@ -159,6 +159,7 @@ class Header{
   
   
   void drawColRowSlider(){
+    //line to seperate creds from interface controls
     stroke(15);
     line(BeadSize, credsBaseline + afterCreds, width-BeadSize, credsBaseline + afterCreds);  
     interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/2);
@@ -185,12 +186,11 @@ class Header{
     rect(mouseX, credsBaseline + afterCreds*4, BeadSize, BeadSize, boarder);
     mapColRowSlider = mouseX;
     mappedColRowSlider = int(map(this.mapColRowSlider, BeadSize, width-BeadSize*2, 2, 51));
-    println(mappedColRowSlider);
   }
   
   void drawFrameSpinner(){
     fill(200);
-    rect(width/2, credsBaseline + afterCreds*5, 100, 10, boarder); 
+    rect(width/2-50, credsBaseline + afterCreds*5, 100, 100, boarder); 
   }
   
   
