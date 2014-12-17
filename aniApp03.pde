@@ -1,31 +1,53 @@
+/*///////////////////////////////////////////////////////////////////////////////
+The MIT License (MIT)
 
-//Globals
+Copyright (c) 2014 Lyndon Daniels and Marion Walton
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+*///////////////////////////////////////////////////////////////////////////////
+
+
+//Globals//////////////////////////////////////////////////////////////////////
+
+//Objects
 Bead mainBead;
 Frame[] mainFrame;
 Header mainHeader;
 PickColor colorPicker;
 Controls mainControls;
 
-//Global Var
+//Globally Influential Variables
 int BeadSize;
 int Columns;
 int Rows;
-//TotalColRow = Columns * Rows
 int TotalColRow;
-//Set to draw grid at the beginning then set to false in drawFrame method**
 boolean Initialize;
 //Detect orientation use this for layout 
 boolean VertOrient;
-//Frame Index number of frame currently being accessed eg drawn to screen
+//Frame Index. Number of frame currently being accessed i.e. drawn to screen
 int FmIndex;
-//State of App draw, logo, hamburger
 String headerState;
 String appState;
 boolean appTransition;
 int aniSpeed = 200;
 color activeColor;
-
-int mappedColRowSlider;
 
 //------------------------------------------------------------------------------------//
 void setup(){
@@ -33,27 +55,21 @@ void setup(){
   smooth();
   background(235);
   stroke(255);
-  
-  //DeBug///////////////////////////
-  println(width + " " + height);
-  //////////////////////////////////
-  
+
   Initialize = true;
-  
-  //This will be set through the interface
-  //here for illustrative purposes
-  Columns = 10;
-  Rows = 10;
-  
-  FmIndex = 0;
-  //Set BeadSize based on Device Display
+  //Innitial Values for columns and rows, values are dynamic
+  Columns = Rows = 10;
   TotalColRow = Columns * Rows;
-  
-  //set BeadSize and Screen Orientation
+   
+  //Set BeadSize and Screen Orientation
   mainBead = new Bead(0,0,0);
   BeadSize = mainBead.setBeadSize(Columns, Rows);
   VertOrient = mainBead.setOrient();
 
+//Draw the apps main screen so that the user knows where to click
+//these calls are not updated in draw(){} unless animation is required
+//dynamic updates of the display are preffered through mouse events
+//****see end****//
 
   //Set Properties for the main header
   mainHeader = new Header(height, "HeadShadow.png", "logo.png"); 
@@ -62,8 +78,7 @@ void setup(){
   mainHeader.drawHeaderText();
   mainHeader.drawHamBurger();
   
-  //Setup Frames will be through interface have a setup button or hamburger button in header for this
-  //here for illustrative purposes
+  //Innitial Values for number of frames, these values are dynamic
   mainFrame = new Frame[4];
   mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
   mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
@@ -79,11 +94,13 @@ void setup(){
   mainControls.drawBackwardControl(mainHeader.headerHeight);
   mainControls.drawForwardControl(mainHeader.headerHeight);
   
- //More temp setup to initialize beads
+ //Draw the beads to the screen as a reference for user clicks
   for(int i = 0; i < TotalColRow; i++){
     mainFrame[FmIndex].drawFrame(mainFrame[FmIndex].storeBeadColor[i], mainHeader.headerHeight);
   }
+  //****ends here****//
   
+  //set the status of the applications features
   headerState = "headerClose";
   appState = "draw";
 }
@@ -98,10 +115,9 @@ void draw(){
   }
   
   if(headerState == "headerUp"){ 
-     
-    
+      
   ////////////////change cols and rows through menu////////   
-    Columns = Rows = mappedColRowSlider;
+    Columns = Rows = mainHeader.mappedColRowSlider;
     //Rows = 5;
     TotalColRow = Columns * Rows;
     BeadSize = mainBead.setBeadSize(Columns, Rows);
@@ -112,14 +128,13 @@ void draw(){
     mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   //////////////////////////////////////////////////////////
   
-  
-    
     background(235);
     //stroke(255);//add this again if you want stroke to appear on headerclose
     mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
     mainHeader.animateHeaderClose(aniSpeed);
     aniSpeed-=aniSpeed/2;
   }
+  
 }
 //---------------------------------------------------------------------------------------//
 void mouseReleased(){
@@ -153,8 +168,7 @@ if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw")
 if(appState == "header" && mainHeader.mouseColRowSlider()){
   println("groovy");
   mainHeader.moveColRowSlider();
-  mappedColRowSlider = int(map(mainHeader.mapColRowSlider, BeadSize, width-BeadSize*2, 2, 51));
-  println(mappedColRowSlider);
+ 
   }  
 
 }

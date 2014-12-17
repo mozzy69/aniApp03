@@ -10,6 +10,9 @@ class Header{
   int boarder;
   boolean mouseColRowSliderPos;
   float mapColRowSlider;
+  int mappedColRowSlider;
+  float afterCreds;
+  float credsBaseline;
   
 //  Constructor
 
@@ -19,6 +22,13 @@ class Header{
     Logo = loadImage(logoTemp);
     headerSansShad = this.headerHeight - this.HeaderShadow.height;
     boarder = 5;
+    //please revise these changes ->
+    //creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
+    //textFont(creditFont);
+    credsBaseline = height/4 + (textAscent()+textDescent())*8;
+    //6 is the number of elements to include line, col row text, 
+    //col row number, slider, frame text, spinner
+    afterCreds = (height - credsBaseline)/6;
   }
 
 //Methods
@@ -98,6 +108,7 @@ class Header{
     headerState = "headerOpen";
     this.drawHeaderCreds();
     this.drawColRowSlider();
+    this.drawFrameSpinner();
     }
   }
 
@@ -129,39 +140,39 @@ class Header{
           //Initialize = true;
         }
   }
-  
+ //////////////////////////////////////////////////////////////////////////////////////// 
   
   //Draw Header Credits
   void drawHeaderCreds(){
-  appState = "header";  
-  textAlign(CENTER);
-  fill(50);
-  text("Creative Code", width/2, height/4);
-  text("Mobile Animator", width/2, height/4 + textAscent()+textDescent());
+    appState = "header";  
+    textAlign(CENTER);
+    fill(50);
+    text("Creative Code", width/2, height/4);
+    text("Mobile Animator", width/2, height/4 + textAscent()+textDescent());
   
-  creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
-  textFont(creditFont);
-  text("By Lyndon Daniels", width/2, height/4 + (textAscent()+textDescent())*4);
-  textSize((this.headerSansShad/2)/1.5);
-  text("Based on \nMarion Walton's Animator App", width/2, height/4 + (textAscent()+textDescent())*8);
-  //textAlign(BASELINE);
+    creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
+    textFont(creditFont);
+    text("By Lyndon Daniels", width/2, height/4 + (textAscent()+textDescent())*4);
+    textSize((this.headerSansShad/2)/1.5);
+    text("Based on \nMarion Walton's Animator App", width/2, height/4 + (textAscent()+textDescent())*8);
   }
   
   
   void drawColRowSlider(){
-  stroke(15);
-  line(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2, width-BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);  
-  interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/2);
-  textFont(interfaceFont);
-  text("Columns and Rows", width/2, (height/4 + (textAscent()+textDescent())*8) + BeadSize*2);
-  rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, width-BeadSize*2, BeadSize, boarder );
-  fill(100);
-  rect(BeadSize, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
+    stroke(15);
+    line(BeadSize, credsBaseline + afterCreds, width-BeadSize, credsBaseline + afterCreds);  
+    interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/2);
+    textFont(interfaceFont);
+    text("Columns and Rows", width/2, credsBaseline + afterCreds*2);
+    text(this.mappedColRowSlider, width/2, credsBaseline + afterCreds*3);
+    rect(BeadSize, credsBaseline + afterCreds*4, width-BeadSize*2, BeadSize, boarder );
+    fill(100);
+    rect(BeadSize, credsBaseline + afterCreds*4, BeadSize, BeadSize, boarder);
   }
   
   boolean mouseColRowSlider(){
-    if (mouseX > BeadSize && mouseY > (height/4 + (textAscent()+textDescent())*8) + BeadSize*4
-    && mouseX < width - BeadSize*2 && mouseY < (height/4 + (textAscent()+textDescent())*8) + BeadSize*4 + BeadSize){
+    if (mouseX > BeadSize && mouseY > credsBaseline + afterCreds*4
+    && mouseX < width - BeadSize*2 && mouseY < credsBaseline + afterCreds*4 + BeadSize){
       mouseColRowSliderPos = true;
     }else{
       mouseColRowSliderPos = false;
@@ -170,10 +181,18 @@ class Header{
   }
   
   void moveColRowSlider(){
-  fill(100);
-  rect(mouseX, (height/4 + (textAscent()+textDescent())*8) + BeadSize*4, BeadSize, BeadSize, boarder);
-  mapColRowSlider = mouseX;
+    fill(100);
+    rect(mouseX, credsBaseline + afterCreds*4, BeadSize, BeadSize, boarder);
+    mapColRowSlider = mouseX;
+    mappedColRowSlider = int(map(this.mapColRowSlider, BeadSize, width-BeadSize*2, 2, 51));
+    println(mappedColRowSlider);
   }
+  
+  void drawFrameSpinner(){
+    fill(200);
+    rect(width/2, credsBaseline + afterCreds*5, 100, 10, boarder); 
+  }
+  
   
 //End Methods////////////////////////////////////////////////////////////////////////////
 }//End Header Class
