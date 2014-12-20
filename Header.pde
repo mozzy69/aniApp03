@@ -1,5 +1,6 @@
 class Header{
-  
+
+//  Fields  
   int headerHeight;
   int headerSansShad;
   PImage HeaderShadow;
@@ -15,6 +16,7 @@ class Header{
   float credsBaseline;
   boolean frameSpinnerMouseUpPos;
   boolean frameSpinnerMouseDownPos;
+
 //  Constructor
 
   Header(int headerHeightTemp, String HeaderShadowTemp, String logoTemp){
@@ -23,12 +25,8 @@ class Header{
     Logo = loadImage(logoTemp);
     headerSansShad = this.headerHeight - this.HeaderShadow.height;
     boarder = 5;
-    //spinnerSize = 200;
-    //please revise these changes ->
-    //creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
-    //textFont(creditFont);
     credsBaseline = height/4 + (textAscent()+textDescent())*8;
-    //6 is the number of elements to include line, col row text, 
+    //8 is the number of elements to include line, col row text, 
     //col row number, slider, frame text, spinner
     afterCreds = (height - credsBaseline)/8;
     //innitial Vale for number of cols and rows
@@ -36,6 +34,7 @@ class Header{
   }
 
 //Methods
+
 //Draw The Header's Shadow////////////////////////////////////////////////////
   PImage drawHeaderShadow(int HeaderHeightTemp){
     //HeaderShadow = loadImage("HeadShadow.png");

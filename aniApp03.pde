@@ -22,7 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 **********************************************************************************/
-
+//Includes/////////////////////////////////////////////////////////////////////
+import select.files.*;
+SelectLibrary files;
 
 //Globals//////////////////////////////////////////////////////////////////////
 
@@ -94,6 +96,11 @@ void setup(){
   mainControls = new Controls("myControls");
   mainControls.drawBackwardControl(mainHeader.headerHeight);
   mainControls.drawForwardControl(mainHeader.headerHeight);
+  mainControls.drawSaveControl(mainHeader.headerHeight);
+  mainControls.drawExportControl(mainHeader.headerHeight);
+  
+  //File Output
+  files = new SelectLibrary(this);
   
  //Draw the beads to the screen as a reference for user clicks
   for(int i = 0; i < TotalColRow; i++){
@@ -140,6 +147,10 @@ void mouseReleased(){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
     colorPicker.renderHex(activeColor);
+    if(mainControls.saveControlMouse(mainHeader.headerHeight)){
+       files.selectOutput("Select a file to write to:", "fileSelected");
+    }
+    
   }
   if(appState == "header" && mainHeader.frameSpinnerMouseUp()){
     numberOfFrames++;
@@ -174,5 +185,14 @@ if(appState == "header" && mainHeader.mouseColRowSlider()){
   mainHeader.moveColRowSlider();
   }  
 
+}
+
+void fileSelected(File selection) {
+    if (selection == null) {
+        println("Window was closed or the user hit cancel.");
+    }else{
+        println("User selected " + selection.getAbsolutePath());
+        save(selection.getAbsolutePath() + ".png");
+    }
 }
 
