@@ -217,12 +217,12 @@ class Header{
   
   boolean frameSpinnerMouseDown(){
     if(mouseX > width/2+headerHeight/2 && mouseY > credsBaseline + afterCreds*5+headerHeight/2 &&
-        mouseX < width/2+headerHeight/2 + headerHeight/2 && mouseY < credsBaseline + afterCreds*5+headerHeight/2 + headerHeight/2){
+       mouseX < width/2+headerHeight/2 + headerHeight/2 && mouseY < credsBaseline + afterCreds*5+headerHeight/2 + headerHeight/2){
         frameSpinnerMouseDownPos = true;
         println("Spinner Down");
-        }else{
+       }else{
         frameSpinnerMouseDownPos = false;
-        }
+       }
         return frameSpinnerMouseDownPos;
     }
   

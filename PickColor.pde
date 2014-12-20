@@ -53,4 +53,11 @@ class PickColor{
    return returnedColor;
   }
   
+  void renderHex(color tempActiveColor){
+    fill(235);
+    rect(width/2-textWidth("00000"), height-(BeadSize+sizeB)-(textAscent()+textDescent()), textWidth("0000000000"), textAscent()+textDescent());
+    fill(100);
+    text("#"+(hex(tempActiveColor)), width/2, height-(BeadSize+sizeB)-mainHeader.boarder);
+  }
+  
 }

@@ -79,16 +79,12 @@ void setup(){
   mainHeader.drawHeaderText();
   mainHeader.drawHamBurger();
   
-  //Innitial Values for number of frames, these values are dynamic
+  //Initial Values for number of frames, these values are dynamic
   numberOfFrames = 4;
   mainFrame = new Frame[numberOfFrames];
   for(int i = 0; i < numberOfFrames; i++ ){
     mainFrame[i] = new Frame(Rows, Columns, TotalColRow);
   }
-  
-  //mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
-  //mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
-  //mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   
   //Color Picker
   colorPicker = new PickColor((BeadSize*Columns)/7);
@@ -120,10 +116,8 @@ void draw(){
   }
   
   if(headerState == "headerUp"){ 
-      
   ////////////////change cols and rows through menu////////   
     Columns = Rows = mainHeader.mappedColRowSlider;
-   
     TotalColRow = Columns * Rows;
     BeadSize = mainBead.setBeadSize(Columns, Rows);
 
@@ -131,9 +125,7 @@ void draw(){
     for(int i = 0; i < numberOfFrames; i++ ){
       mainFrame[i] = new Frame(Rows, Columns, TotalColRow);
     }  
-  
   //////////////////////////////////////////////////////////
-  
     background(235);
     //stroke(255);//add this again if you want stroke to appear on headerclose
     mainFrame[FmIndex].drawFrameTrans(mainHeader.headerHeight);
@@ -147,6 +139,7 @@ void mouseReleased(){
   if(appState == "draw"){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
+    colorPicker.renderHex(activeColor);
   }
   if(appState == "header" && mainHeader.frameSpinnerMouseUp()){
     numberOfFrames++;
@@ -178,9 +171,7 @@ if(mainFrame[FmIndex].frameMouse(mainHeader.headerHeight) && appState == "draw")
   }
   
 if(appState == "header" && mainHeader.mouseColRowSlider()){
-  println("groovy");
   mainHeader.moveColRowSlider();
- 
   }  
 
 }
