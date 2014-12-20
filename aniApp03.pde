@@ -148,7 +148,9 @@ void mouseReleased(){
     activeColor = colorPicker.activateColor();
     colorPicker.renderHex(activeColor);
     if(mainControls.saveControlMouse(mainHeader.headerHeight)){
-       files.selectOutput("Select a file to write to:", "fileSelected");
+       files.selectOutput("Select a file to write to:", "fileSelectedSave");   
+    }else if(mainControls.exportControlMouse(mainHeader.headerHeight)){
+      files.selectOutput("Select a file to write to:", "fileSelectedExport"); 
     }
     
   }
@@ -187,12 +189,25 @@ if(appState == "header" && mainHeader.mouseColRowSlider()){
 
 }
 
-void fileSelected(File selection) {
+void fileSelectedSave(File selection) {
     if (selection == null) {
         println("Window was closed or the user hit cancel.");
     }else{
         println("User selected " + selection.getAbsolutePath());
         save(selection.getAbsolutePath() + ".png");
+    }
+}
+
+void fileSelectedExport(File selection) {
+    if (selection == null) {
+        println("Window was closed or the user hit cancel.");
+    }else{
+        println("User selected " + selection.getAbsolutePath());
+        String[] list = new String[TotalColRow];
+        for(int i = 0; i < TotalColRow; i++){
+          list[i] = hex(mainFrame[FmIndex].storeBeadColor[i]);
+        }
+        saveStrings(selection.getAbsolutePath() + ".txt", list);
     }
 }
 

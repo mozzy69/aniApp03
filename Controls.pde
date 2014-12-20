@@ -3,6 +3,8 @@ class Controls{
   //Fields 
   String controlType;
   boolean saveControlMousePos;
+  boolean exportControlMousePos;
+  boolean ControlMousePos;
   //Constructor
 
   Controls(String tempControlType){
@@ -36,7 +38,7 @@ class Controls{
   void drawExportControl(int HeaderHeightTemp){
     stroke(255);
     rect(BeadSize+(BeadSize*(Columns/2)), HeaderHeightTemp+BeadSize+(Rows*BeadSize)+HeaderHeightTemp,
-         (BeadSize*(Columns/2))+1, HeaderHeightTemp);
+         (BeadSize*(Columns/2)), HeaderHeightTemp);
     noStroke();
   }
   
@@ -49,6 +51,17 @@ class Controls{
          saveControlMousePos = false;
        }
       return saveControlMousePos;
+  }
+  
+  boolean exportControlMouse(int HeaderHeightTemp){
+    if(mouseX > BeadSize+(BeadSize*(Columns/2)) && mouseY > HeaderHeightTemp+BeadSize+(Rows*BeadSize)+HeaderHeightTemp &&
+       mouseX < BeadSize + (BeadSize*(Columns/2))+(BeadSize*(Columns/2)) && mouseY < HeaderHeightTemp+BeadSize+(Rows*BeadSize)+HeaderHeightTemp + HeaderHeightTemp){
+         exportControlMousePos = true;
+         println("Export Control");
+       }else{
+         exportControlMousePos = false;
+       }
+      return exportControlMousePos;
   }
   
   void changeFrame(Frame[] tempFrame, int HeaderHeightTemp){
