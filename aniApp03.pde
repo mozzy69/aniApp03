@@ -1,7 +1,7 @@
-/*///////////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
 The MIT License (MIT)
 
-Copyright (c) 2014 Lyndon Daniels and Marion Walton
+Copyright (c) 2014 Lyndon Daniels
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-*///////////////////////////////////////////////////////////////////////////////
+**********************************************************************************/
 
 
 //Globals//////////////////////////////////////////////////////////////////////
@@ -48,6 +48,7 @@ String appState;
 boolean appTransition;
 int aniSpeed = 200;
 color activeColor;
+int numberOfFrames;
 
 //------------------------------------------------------------------------------------//
 void setup(){
@@ -79,11 +80,15 @@ void setup(){
   mainHeader.drawHamBurger();
   
   //Innitial Values for number of frames, these values are dynamic
-  mainFrame = new Frame[4];
-  mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
-  mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
-  mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
-  mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
+  numberOfFrames = 4;
+  mainFrame = new Frame[numberOfFrames];
+  for(int i = 0; i < numberOfFrames; i++ ){
+    mainFrame[i] = new Frame(Rows, Columns, TotalColRow);
+  }
+  
+  //mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
+  //mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
+  //mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
   
   //Color Picker
   colorPicker = new PickColor((BeadSize*Columns)/7);
@@ -118,14 +123,15 @@ void draw(){
       
   ////////////////change cols and rows through menu////////   
     Columns = Rows = mainHeader.mappedColRowSlider;
-    //Rows = 5;
+   
     TotalColRow = Columns * Rows;
     BeadSize = mainBead.setBeadSize(Columns, Rows);
-    mainFrame = new Frame[4];
-    mainFrame[0] = new Frame(Rows, Columns, TotalColRow);
-    mainFrame[1] = new Frame(Rows, Columns, TotalColRow);
-    mainFrame[2] = new Frame(Rows, Columns, TotalColRow);
-    mainFrame[3] = new Frame(Rows, Columns, TotalColRow);
+
+    mainFrame = new Frame[numberOfFrames];
+    for(int i = 0; i < numberOfFrames; i++ ){
+      mainFrame[i] = new Frame(Rows, Columns, TotalColRow);
+    }  
+  
   //////////////////////////////////////////////////////////
   
     background(235);
@@ -142,6 +148,13 @@ void mouseReleased(){
     mainControls.changeFrame(mainFrame, mainHeader.headerHeight);
     activeColor = colorPicker.activateColor();
   }
+  if(appState == "header" && mainHeader.frameSpinnerMouseUp()){
+    numberOfFrames++;
+    println(numberOfFrames);
+  }else if(appState == "header" && mainHeader.frameSpinnerMouseDown() && numberOfFrames > 1){
+    numberOfFrames--;
+    println(numberOfFrames);
+  }
   headerState = mainHeader.headerMouse(headerState);
 }
 
@@ -152,7 +165,6 @@ void mousePressed(){
   }
   
   if(appState == "header" && mainHeader.mouseColRowSlider()){
-  println("groovy");
   mainHeader.moveColRowSlider();
   }
   

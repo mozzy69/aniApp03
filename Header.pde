@@ -13,7 +13,8 @@ class Header{
   int mappedColRowSlider;
   float afterCreds;
   float credsBaseline;
-  
+  boolean frameSpinnerMouseUpPos;
+  boolean frameSpinnerMouseDownPos;
 //  Constructor
 
   Header(int headerHeightTemp, String HeaderShadowTemp, String logoTemp){
@@ -22,6 +23,7 @@ class Header{
     Logo = loadImage(logoTemp);
     headerSansShad = this.headerHeight - this.HeaderShadow.height;
     boarder = 5;
+    //spinnerSize = 200;
     //please revise these changes ->
     //creditFont = createFont("BPdotsUnicaseSquare.otf", this.headerSansShad/2 );
     //textFont(creditFont);
@@ -29,6 +31,8 @@ class Header{
     //6 is the number of elements to include line, col row text, 
     //col row number, slider, frame text, spinner
     afterCreds = (height - credsBaseline)/8;
+    //innitial Vale for number of cols and rows
+    mappedColRowSlider = 10;
   }
 
 //Methods
@@ -135,6 +139,8 @@ class Header{
           this.drawHeaderText();
           this.drawHamBurger();
           colorPicker.drawPickColor();
+          mainControls.drawBackwardControl(mainHeader.headerHeight);
+          mainControls.drawForwardControl(mainHeader.headerHeight);
           headerState = "headerClose";
           appState = "draw";
           //Initialize = true;
@@ -164,16 +170,16 @@ class Header{
     line(BeadSize, credsBaseline + afterCreds, width-BeadSize, credsBaseline + afterCreds);  
     interfaceFont = createFont("Amble-Regular.ttf", this.headerSansShad/2);
     textFont(interfaceFont);
-    text("Columns and Rows", width/2, credsBaseline + afterCreds*2);
-    text(this.mappedColRowSlider, width/2, credsBaseline + afterCreds*3);
-    rect(BeadSize, credsBaseline + afterCreds*4, width-BeadSize*2, BeadSize, boarder );
+    text("Columns and Rows" + " " +this.mappedColRowSlider, width/2, credsBaseline + afterCreds*2);
+    //text(this.mappedColRowSlider, width/2, credsBaseline + afterCreds*2);
+    rect(BeadSize, credsBaseline + afterCreds*3, width-BeadSize*2, BeadSize, boarder );
     fill(100);
-    rect(BeadSize, credsBaseline + afterCreds*4, BeadSize, BeadSize, boarder);
+    rect(BeadSize, credsBaseline + afterCreds*3, BeadSize, BeadSize, boarder);
   }
   
   boolean mouseColRowSlider(){
-    if (mouseX > BeadSize && mouseY > credsBaseline + afterCreds*4
-    && mouseX < width - BeadSize*2 && mouseY < credsBaseline + afterCreds*4 + BeadSize){
+    if (mouseX > BeadSize && mouseY > credsBaseline + afterCreds*3
+    && mouseX < width - BeadSize*2 && mouseY < credsBaseline + afterCreds*3 + BeadSize){
       mouseColRowSliderPos = true;
     }else{
       mouseColRowSliderPos = false;
@@ -183,16 +189,42 @@ class Header{
   
   void moveColRowSlider(){
     fill(100);
-    rect(mouseX, credsBaseline + afterCreds*4, BeadSize, BeadSize, boarder);
+    rect(mouseX, credsBaseline + afterCreds*3, BeadSize, BeadSize, boarder);
     mapColRowSlider = mouseX;
     mappedColRowSlider = int(map(this.mapColRowSlider, BeadSize, width-BeadSize*2, 2, 51));
   }
   
   void drawFrameSpinner(){
     fill(200);
-    rect(width/2-50, credsBaseline + afterCreds*5, 100, 100, boarder); 
+    rect(width/2-headerHeight, credsBaseline + afterCreds*5, headerHeight*2, headerHeight, boarder); 
+    fill(125);
+    text("Frames", width/2, credsBaseline + afterCreds*4.5);
+    rect(width/2+headerHeight/2, credsBaseline + afterCreds*5, headerHeight/2, headerHeight/2, boarder, boarder, 0,0);
+    rect(width/2+headerHeight/2, credsBaseline + afterCreds*5+headerHeight/2, headerHeight/2, headerHeight/2, 0, 0, boarder, boarder);
+    text(numberOfFrames, width/2, credsBaseline + afterCreds*5+headerHeight/2);
   }
   
+  boolean frameSpinnerMouseUp(){
+    if(mouseX > width/2+headerHeight/2 && mouseY > credsBaseline + afterCreds*5 &&
+        mouseX < width/2+headerHeight/2 + headerHeight/2 && mouseY < credsBaseline + afterCreds*5 + headerHeight/2){
+        frameSpinnerMouseUpPos = true;
+        println("Spinner UP");
+        }else{
+        frameSpinnerMouseUpPos = false;
+        }
+        return frameSpinnerMouseUpPos;
+    }
   
-//End Methods////////////////////////////////////////////////////////////////////////////
-}//End Header Class
+  boolean frameSpinnerMouseDown(){
+    if(mouseX > width/2+headerHeight/2 && mouseY > credsBaseline + afterCreds*5+headerHeight/2 &&
+        mouseX < width/2+headerHeight/2 + headerHeight/2 && mouseY < credsBaseline + afterCreds*5+headerHeight/2 + headerHeight/2){
+        frameSpinnerMouseDownPos = true;
+        println("Spinner Down");
+        }else{
+        frameSpinnerMouseDownPos = false;
+        }
+        return frameSpinnerMouseDownPos;
+    }
+  
+  }//End Methods////////////////////////////////////////////////////////////////////////////
+//}//End Header Class
