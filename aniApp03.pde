@@ -148,17 +148,19 @@ void mouseReleased(){
     activeColor = colorPicker.activateColor();
     colorPicker.renderHex(activeColor);
     if(mainControls.saveControlMouse(mainHeader.headerHeight)){
-       files.selectOutput("Select a file to write to:", "fileSelectedSave");   
+       files.selectOutput("Save Image File To:", "fileSelectedSave");   
     }else if(mainControls.exportControlMouse(mainHeader.headerHeight)){
-      files.selectOutput("Select a file to write to:", "fileSelectedExport"); 
+      files.selectOutput("Export Hex Color Values To:", "fileSelectedExport"); 
     }
     
   }
   if(appState == "header" && mainHeader.frameSpinnerMouseUp()){
     numberOfFrames++;
+    mainHeader.drawFrameSpinner();
     println(numberOfFrames);
   }else if(appState == "header" && mainHeader.frameSpinnerMouseDown() && numberOfFrames > 1){
     numberOfFrames--;
+    mainHeader.drawFrameSpinner();
     println(numberOfFrames);
   }
   headerState = mainHeader.headerMouse(headerState);
